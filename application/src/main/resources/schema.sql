@@ -1,3 +1,9 @@
+CREATE TABLE drivers (
+    id SERIAL PRIMARY KEY,
+    document VARCHAR(20) UNIQUE NOT NULL,
+    birthdate DATE NOT NULL
+);
+
 CREATE TABLE customers (
    id SERIAL PRIMARY KEY,
    name VARCHAR(255) NOT NULL,
@@ -5,17 +11,11 @@ CREATE TABLE customers (
    CONSTRAINT fk_driver_customer FOREIGN KEY (driver_id) REFERENCES drivers(id)
 );
 
-CREATE TABLE drivers (
-    id SERIAL PRIMARY KEY,
-    document VARCHAR(20) UNIQUE NOT NULL,
-    birthdate DATE NOT NULL
-);
-
 CREATE TABLE cars (
     id SERIAL PRIMARY KEY,
     model VARCHAR(100) NOT NULL,
     manufacturer VARCHAR(100) NOT NULL,
-    year INT CHECK (year >= 1900),
+    years INT NOT NULL,
     fipe_value DECIMAL(12,2) NOT NULL
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE insurances (
     creation_dt TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,
     car_id INT NOT NULL,
-    is_active BOOLEAN DEFAULT TRUE,
+    is_active BOOLEAN DEFAULT FALSE,
     CONSTRAINT fk_customer_insurance FOREIGN KEY (customer_id) REFERENCES customers(id),
     CONSTRAINT fk_car_insurance FOREIGN KEY (car_id) REFERENCES cars(id)
 );

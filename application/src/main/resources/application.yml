@@ -12,6 +12,9 @@ spring:
       path: /h2-console
       settings.trace: false
       settings.web-allow-others: false
+  sql:
+    init:
+      mode: always
 
 server:
   port: 8080
