@@ -6,6 +6,6 @@ import lombok.Data;
 public class CarDriver {
     private Long id;
     private Long carId;
-    private String driverId;
+    private Long driverId;
     private boolean isMainDriver;
 }
