@@ -12,8 +12,8 @@ public class DriverHasClaim implements RiskManagementStrategy {
     private final ClaimRepository claimRepository;
 
     @Override
-    public BigDecimal verify(String driverDocument, Long carId) {
-        boolean hasClaims = claimRepository.driverHasClaim(driverDocument);
+    public BigDecimal verify(Long customerId, Long carId) {
+        boolean hasClaims = claimRepository.driverHasClaimByCustomerId(customerId);
         return hasClaims ? RiskManagementStrategy.STANDARD_RISK_PERCENTAGE : BigDecimal.ZERO;
     }
 }

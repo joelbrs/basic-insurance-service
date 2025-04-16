@@ -1,6 +1,6 @@
 package br.com.joelf.domain.port;
 
 public interface ClaimRepository {
-    boolean driverHasClaim(String document);
+    boolean driverHasClaimByCustomerId(Long customerId);
     boolean carHasClaim(Long carId);
 }

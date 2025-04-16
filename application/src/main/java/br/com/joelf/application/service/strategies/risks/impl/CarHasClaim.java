@@ -12,7 +12,7 @@ public class CarHasClaim implements RiskManagementStrategy {
     private final ClaimRepository claimRepository;
 
     @Override
-    public BigDecimal verify(String driverDocument, Long carId) {
+    public BigDecimal verify(Long customerId, Long carId) {
         boolean hasClaim = claimRepository.carHasClaim(carId);
         return hasClaim ? RiskManagementStrategy.STANDARD_RISK_PERCENTAGE : BigDecimal.ZERO;
     }
