@@ -16,7 +16,7 @@ public class ServiceConfig {
     public BudgetService budgetService(
             CarRepository carRepository,
             ClaimRepository claimRepository,
-            CacheRepository<Long, Budget> budgetCache
+            CacheRepository<String, Budget> budgetCache
     ) {
         return new BudgetServiceImpl(carRepository, claimRepository, budgetCache);
     }

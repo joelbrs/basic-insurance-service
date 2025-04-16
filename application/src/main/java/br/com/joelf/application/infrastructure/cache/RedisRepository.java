@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
-public class RedisRepository<K, V> implements CacheRepository<K, V> {
+public class RedisRepository<K extends String, V> implements CacheRepository<K, V> {
 
     private final RedisTemplate<K, V> redisTemplate;
     private final String timeToLive;

@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 public class BudgetServiceImpl implements BudgetService {
 
@@ -24,12 +23,12 @@ public class BudgetServiceImpl implements BudgetService {
 
     private final CarRepository carRepository;
     private final ClaimRepository claimRepository;
-    private final CacheRepository<Long, Budget> budgetCache;
+    private final CacheRepository<String, Budget> budgetCache;
 
     public BudgetServiceImpl(
             CarRepository carRepository,
             ClaimRepository claimRepository,
-            CacheRepository<Long, Budget> budgetCache
+            CacheRepository<String, Budget> budgetCache
     ) {
         this.carRepository = carRepository;
         this.claimRepository = claimRepository;
@@ -55,14 +54,15 @@ public class BudgetServiceImpl implements BudgetService {
         Car carDetails = carRepository.getDetails(carId);
 
         Budget budget = Budget.builder()
-                .customerId(new Random().nextLong())
+                .id(Math.abs(new Random().nextLong()))
+                .customerId(customerId)
                 .standardAliquot(STANDARD_ALIQUOTE)
                 .carId(carId)
                 .basedFipeValue(carDetails.getFipeValue())
                 .riskManagementAdditional(additionalRiskFactor)
                 .build();
 
-        budgetCache.set(budget.getId(), budget);
+        budgetCache.set(budget.getId().toString(), budget);
         return budget;
     }
 

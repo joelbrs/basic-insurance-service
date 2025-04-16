@@ -24,5 +24,6 @@ app:
   redis:
     time-to-live: 30
 
+
 server:
   port: 8080

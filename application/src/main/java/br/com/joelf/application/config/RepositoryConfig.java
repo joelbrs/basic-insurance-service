@@ -42,8 +42,8 @@ public class RepositoryConfig {
     }
 
     @Bean
-    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<?, ?> template = new RedisTemplate<>();
+    public <V> RedisTemplate<String, V> redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, V> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
 
         template.setKeySerializer(new StringRedisSerializer());
@@ -53,9 +53,9 @@ public class RepositoryConfig {
     }
 
     @Bean
-    public CacheRepository<?, ?> cacheRepository(
-            RedisTemplate<?, ?> redisTemplate,
-            @Value("{app.redis.time-to-live}") String timeToLive
+    public <V> CacheRepository<String, V> cacheRepository(
+            RedisTemplate<String, V> redisTemplate,
+            @Value("${app.redis.time-to-live}") String timeToLive
     ) {
         return new RedisRepository<>(redisTemplate, timeToLive);
     }
