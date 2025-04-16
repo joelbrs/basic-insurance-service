@@ -23,14 +23,14 @@ public class MainDriverIsYoungAge implements RiskManagementStrategy {
         if (mainDriver != null) {
             LocalDate today = LocalDate.now();
             LocalDate lowerLimit = today.minusYears(LOWER_LIMIT_YEARS);
-            LocalDate upperLimit = today.plusYears(UPPER_LIMIT_YEARS);
+            LocalDate upperLimit = today.minusYears(UPPER_LIMIT_YEARS);
 
             LocalDate mainDriverBirthDate = mainDriver.getBirthDate();
 
             boolean isDriverBirthdayHigherOrEqualThanLowerLimit =
-                    mainDriverBirthDate.isAfter(lowerLimit) || mainDriverBirthDate.isEqual(lowerLimit);
+                    mainDriverBirthDate.isBefore(lowerLimit) || mainDriverBirthDate.isEqual(lowerLimit);
             boolean isDriverBirthdayLowerOrEqualThanUpperLimit =
-                    mainDriverBirthDate.isBefore(upperLimit) || mainDriverBirthDate.isEqual(upperLimit);
+                    mainDriverBirthDate.isAfter(upperLimit) || mainDriverBirthDate.isEqual(upperLimit);
 
             if (isDriverBirthdayHigherOrEqualThanLowerLimit && isDriverBirthdayLowerOrEqualThanUpperLimit) {
                 return RiskManagementStrategy.STANDARD_RISK_PERCENTAGE;
