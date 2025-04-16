@@ -69,6 +69,11 @@ public class BudgetServiceImpl implements BudgetService {
     @Override
     public Budget updateBudget(Long id, Long carId) {
         Budget budget = budgetCache.get(id.toString());
+
+        if (budget == null) {
+            throw new IllegalArgumentException("Budget not found, id: " + id);
+        }
+
         BigDecimal additionalRiskFactor = getRiskFactor(budget.getCustomerId(), carId);
 
         Car carDetails = carRepository.getDetails(carId);
