@@ -7,4 +7,5 @@ import java.math.BigDecimal;
 public interface BudgetService {
     BigDecimal getRiskFactor(Long customerId, Long carId);
     Budget createBudget(Long customerId, Long carId);
+    Budget updateBudget(Long id, Long carId);
 }
