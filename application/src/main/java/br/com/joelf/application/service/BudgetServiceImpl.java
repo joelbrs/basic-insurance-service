@@ -66,6 +66,27 @@ public class BudgetServiceImpl implements BudgetService {
         return budget;
     }
 
+    @Override
+    public Budget updateBudget(Long id, Long carId) {
+        Budget budget = budgetCache.get(id.toString());
+
+        if (budget == null) {
+            throw new IllegalArgumentException("Budget not found, id: " + id);
+        }
+
+        BigDecimal additionalRiskFactor = getRiskFactor(budget.getCustomerId(), carId);
+
+        Car carDetails = carRepository.getDetails(carId);
+
+        budget.setCarId(carId);
+        budget.setStandardAliquot(STANDARD_ALIQUOTE);
+        budget.setBasedFipeValue(carDetails.getFipeValue());
+        budget.setRiskManagementAdditional(additionalRiskFactor);
+
+        budgetCache.set(id.toString(), budget);
+        return budget;
+    }
+
     private void populateInsuranceStrategy() {
         RISKS_MANAGEMENT.add(new CarHasClaim(claimRepository));
         RISKS_MANAGEMENT.add(new DriverHasClaim(claimRepository));
