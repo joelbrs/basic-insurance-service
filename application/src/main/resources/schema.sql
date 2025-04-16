@@ -16,7 +16,15 @@ CREATE TABLE cars (
     model VARCHAR(100) NOT NULL,
     manufacturer VARCHAR(100) NOT NULL,
     years INT NOT NULL,
-    fipe_value DECIMAL(12,2) NOT NULL
+    fipe_value DECIMAL(12,4) NOT NULL
+);
+
+
+CREATE TABLE budgets (
+    id SERIAL PRIMARY KEY,
+    based_fipe_value DECIMAL(12,4) NOT NULL,
+    standard_aliquot DECIMAL(12, 4) NOT NULL,
+    risk_management_additional DECIMAL(12,4) NOT NULL
 );
 
 CREATE TABLE insurances (
@@ -26,8 +34,10 @@ CREATE TABLE insurances (
     updated_at TIMESTAMP,
     car_id INT NOT NULL,
     is_active BOOLEAN DEFAULT FALSE,
+    budget_id INT NOT NULL,
     CONSTRAINT fk_customer_insurance FOREIGN KEY (customer_id) REFERENCES customers(id),
-    CONSTRAINT fk_car_insurance FOREIGN KEY (car_id) REFERENCES cars(id)
+    CONSTRAINT fk_car_insurance FOREIGN KEY (car_id) REFERENCES cars(id),
+    CONSTRAINT fk_budget_insurance FOREIGN KEY (budget_id) REFERENCES budgets(id)
 );
 
 CREATE TABLE claims (

@@ -9,7 +9,7 @@ public interface JdbiClaimRepository extends ClaimRepository {
 
     @Override
     @SqlQuery
-    boolean driverHasClaim(String document);
+    boolean driverHasClaimByCustomerId(Long customerId);
 
     @Override
     @SqlQuery

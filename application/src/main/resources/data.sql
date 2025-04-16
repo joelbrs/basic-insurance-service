@@ -17,11 +17,11 @@ insert into cars (model, manufacturer, years, fipe_value) values
 ('Onix', 'Chevrolet', 2021, 60000.00),
 ('HB20', 'Hyundai', 2022, 72000.00);
 
-insert into insurances (customer_id, creation_dt, updated_at, car_id, is_active) values
-(1, '2024-01-10 10:00:00', '2024-01-15 14:30:00', 1, true),
-(2, '2024-02-01 09:20:00', NULL, 2, false),
-(3, '2024-03-05 12:00:00', '2024-03-10 13:00:00', 3, true),
-(4, '2024-04-01 09:00:00', NULL, 4, true);
+-- insert into insurances (customer_id, creation_dt, updated_at, car_id, is_active) values
+-- (1, '2024-01-10 10:00:00', '2024-01-15 14:30:00', 1, true),
+-- (2, '2024-02-01 09:20:00', NULL, 2, false),
+-- (3, '2024-03-05 12:00:00', '2024-03-10 13:00:00', 3, true),
+-- (4, '2024-04-01 09:00:00', NULL, 4, true);
 
 insert into claims (car_id, driver_id, event_date) values
 (1, 1, '2023-05-10'),

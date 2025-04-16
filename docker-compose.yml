@@ -1,7 +1,13 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+  redis:
+    image: redis
+    hostname: redis
+    restart: always
     ports:
-      - "8080:8080"
+      - "6379:6379"

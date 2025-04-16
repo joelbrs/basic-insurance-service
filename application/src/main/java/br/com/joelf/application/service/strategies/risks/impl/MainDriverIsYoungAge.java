@@ -17,7 +17,7 @@ public class MainDriverIsYoungAge implements RiskManagementStrategy {
     private final CarRepository carRepository;
 
     @Override
-    public BigDecimal verify(String driverDocument, Long carId) {
+    public BigDecimal verify(Long customerId, Long carId) {
         Driver mainDriver = carRepository.getMainDriver(carId);
 
         if (mainDriver != null) {
