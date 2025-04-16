@@ -19,6 +19,14 @@ CREATE TABLE cars (
     fipe_value DECIMAL(12,4) NOT NULL
 );
 
+
+CREATE TABLE budgets (
+    id SERIAL PRIMARY KEY,
+    based_fipe_value DECIMAL(12,4) NOT NULL,
+    standard_aliquot DECIMAL(12, 4) NOT NULL,
+    risk_management_additional DECIMAL(12,4) NOT NULL
+);
+
 CREATE TABLE insurances (
     id SERIAL PRIMARY KEY,
     customer_id INT NOT NULL,
@@ -28,7 +36,7 @@ CREATE TABLE insurances (
     is_active BOOLEAN DEFAULT FALSE,
     budget_id INT NOT NULL,
     CONSTRAINT fk_customer_insurance FOREIGN KEY (customer_id) REFERENCES customers(id),
-    CONSTRAINT fk_car_insurance FOREIGN KEY (car_id) REFERENCES cars(id)
+    CONSTRAINT fk_car_insurance FOREIGN KEY (car_id) REFERENCES cars(id),
     CONSTRAINT fk_budget_insurance FOREIGN KEY (budget_id) REFERENCES budgets(id)
 );
 
@@ -49,10 +57,3 @@ CREATE TABLE car_drivers (
      CONSTRAINT fk_car_car_drivers FOREIGN KEY (car_id) REFERENCES cars(id),
      CONSTRAINT fk_driver_car_drivers FOREIGN KEY (driver_id) REFERENCES drivers(id)
 );
-
-CREATE TABLE budgets (
-    id SERIAL PRIMARY KEY,
-    based_fipe_value DECIMAL(12,4) NOT NULL,
-    standard_aliquot DECIMAL(12, 4) NOT NULL,
-    risk_management_additional DECIMAL(12,4) NOT NULL,
-)

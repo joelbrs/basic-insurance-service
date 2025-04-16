@@ -6,13 +6,13 @@ import br.com.joelf.application.service.strategies.risks.impl.DriverHasClaim;
 import br.com.joelf.application.service.strategies.risks.impl.MainDriverIsYoungAge;
 import br.com.joelf.domain.port.CarRepository;
 import br.com.joelf.domain.port.ClaimRepository;
-import br.com.joelf.domain.service.InsuranceService;
+import br.com.joelf.domain.service.BudgetService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InsuranceServiceImpl implements InsuranceService {
+public class BudgetServiceImpl implements BudgetService {
 
     private static final BigDecimal STANDARD_ALIQUOTE = BigDecimal.valueOf(6L);
     private final List<RiskManagementStrategy> RISKS_MANAGEMENT = new ArrayList<>();
@@ -20,7 +20,7 @@ public class InsuranceServiceImpl implements InsuranceService {
     private final CarRepository carRepository;
     private final ClaimRepository claimRepository;
 
-    public InsuranceServiceImpl(
+    public BudgetServiceImpl(
             CarRepository carRepository,
             ClaimRepository claimRepository
     ) {

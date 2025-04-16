@@ -1,9 +1,9 @@
 package br.com.joelf.application.config;
 
-import br.com.joelf.application.service.InsuranceServiceImpl;
+import br.com.joelf.application.service.BudgetServiceImpl;
 import br.com.joelf.domain.port.CarRepository;
 import br.com.joelf.domain.port.ClaimRepository;
-import br.com.joelf.domain.service.InsuranceService;
+import br.com.joelf.domain.service.BudgetService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 public class ServiceConfig {
 
     @Bean
-    public InsuranceService insuranceService(
+    public BudgetService budgetService(
             CarRepository carRepository,
             ClaimRepository claimRepository
     ) {
-        return new InsuranceServiceImpl(carRepository, claimRepository);
+        return new BudgetServiceImpl(carRepository, claimRepository);
     }
 }
