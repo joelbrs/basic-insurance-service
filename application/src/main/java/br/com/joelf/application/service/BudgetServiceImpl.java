@@ -87,6 +87,17 @@ public class BudgetServiceImpl implements BudgetService {
         return budget;
     }
 
+    @Override
+    public void deleteBudget(Long id) {
+        Budget budget = budgetCache.get(id.toString());
+
+        if (budget == null) {
+            throw new IllegalArgumentException("Budget not found, id: " + id);
+        }
+
+        budgetCache.delete(id.toString());
+    }
+
     private void populateInsuranceStrategy() {
         RISKS_MANAGEMENT.add(new CarHasClaim(claimRepository));
         RISKS_MANAGEMENT.add(new DriverHasClaim(claimRepository));

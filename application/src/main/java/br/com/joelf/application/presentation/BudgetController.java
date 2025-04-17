@@ -27,4 +27,10 @@ public class BudgetController {
     public Budget updateBudget(@PathVariable Long id, @RequestBody @Valid UpdateBudgetDto budget) {
         return budgetService.updateBudget(id, budget.carId());
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBudget(@PathVariable Long id) {
+        budgetService.deleteBudget(id);
+    }
 }
