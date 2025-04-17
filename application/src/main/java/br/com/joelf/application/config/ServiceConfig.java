@@ -2,6 +2,7 @@ package br.com.joelf.application.config;
 
 import br.com.joelf.application.service.BudgetServiceImpl;
 import br.com.joelf.domain.domain.Budget;
+import br.com.joelf.domain.port.BudgetRepository;
 import br.com.joelf.domain.port.CacheRepository;
 import br.com.joelf.domain.port.CarRepository;
 import br.com.joelf.domain.port.ClaimRepository;
@@ -16,8 +17,11 @@ public class ServiceConfig {
     public BudgetService budgetService(
             CarRepository carRepository,
             ClaimRepository claimRepository,
-            CacheRepository<String, Budget> budgetCache
+            CacheRepository<String, Budget> budgetCache,
+            BudgetRepository budgetRepository
     ) {
-        return new BudgetServiceImpl(carRepository, claimRepository, budgetCache);
+        return new BudgetServiceImpl(
+                carRepository, claimRepository, budgetCache, budgetRepository
+        );
     }
 }

@@ -1,8 +1,10 @@
 package br.com.joelf.application.config;
 
 import br.com.joelf.application.infrastructure.cache.RedisRepository;
+import br.com.joelf.application.infrastructure.database.JdbiBudgetRepository;
 import br.com.joelf.application.infrastructure.database.JdbiCarRepository;
 import br.com.joelf.application.infrastructure.database.JdbiClaimRepository;
+import br.com.joelf.domain.port.BudgetRepository;
 import br.com.joelf.domain.port.CacheRepository;
 import br.com.joelf.domain.port.CarRepository;
 import br.com.joelf.domain.port.ClaimRepository;
@@ -68,5 +70,10 @@ public class RepositoryConfig {
     @Bean
     public CarRepository carRepository(Jdbi jdbi) {
         return jdbi.onDemand(JdbiCarRepository.class);
+    }
+
+    @Bean
+    public BudgetRepository budgetRepository(Jdbi jdbi) {
+        return jdbi.onDemand(JdbiBudgetRepository.class);
     }
 }

@@ -6,10 +6,12 @@ import br.com.joelf.application.service.strategies.risks.impl.DriverHasClaim;
 import br.com.joelf.application.service.strategies.risks.impl.MainDriverIsYoungAge;
 import br.com.joelf.domain.domain.Budget;
 import br.com.joelf.domain.domain.Car;
+import br.com.joelf.domain.port.BudgetRepository;
 import br.com.joelf.domain.port.CacheRepository;
 import br.com.joelf.domain.port.CarRepository;
 import br.com.joelf.domain.port.ClaimRepository;
 import br.com.joelf.domain.service.BudgetService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,15 +26,18 @@ public class BudgetServiceImpl implements BudgetService {
     private final CarRepository carRepository;
     private final ClaimRepository claimRepository;
     private final CacheRepository<String, Budget> budgetCache;
+    private final BudgetRepository budgetRepository;
 
     public BudgetServiceImpl(
             CarRepository carRepository,
             ClaimRepository claimRepository,
-            CacheRepository<String, Budget> budgetCache
+            CacheRepository<String, Budget> budgetCache,
+            BudgetRepository budgetRepository
     ) {
         this.carRepository = carRepository;
         this.claimRepository = claimRepository;
         this.budgetCache = budgetCache;
+        this.budgetRepository = budgetRepository;
 
         this.populateInsuranceStrategy();
     }
@@ -68,11 +73,7 @@ public class BudgetServiceImpl implements BudgetService {
 
     @Override
     public Budget updateBudget(Long id, Long carId) {
-        Budget budget = budgetCache.get(id.toString());
-
-        if (budget == null) {
-            throw new IllegalArgumentException("Budget not found, id: " + id);
-        }
+        Budget budget = this.getBudgetFromCache(id);
 
         BigDecimal additionalRiskFactor = getRiskFactor(budget.getCustomerId(), carId);
 
@@ -88,14 +89,27 @@ public class BudgetServiceImpl implements BudgetService {
     }
 
     @Override
-    public void deleteBudget(Long id) {
+    public Budget deleteBudget(Long id) {
+        Budget budget = this.getBudgetFromCache(id);
+        budgetCache.delete(id.toString());
+
+        return budget;
+    }
+
+    @Transactional
+    @Override
+    public Long createBudgetDomain(Long id) {
+        Budget budget = this.deleteBudget(id);
+        return budgetRepository.create(budget);
+    }
+
+    private Budget getBudgetFromCache(Long id) {
         Budget budget = budgetCache.get(id.toString());
 
         if (budget == null) {
             throw new IllegalArgumentException("Budget not found, id: " + id);
         }
-
-        budgetCache.delete(id.toString());
+        return budget;
     }
 
     private void populateInsuranceStrategy() {

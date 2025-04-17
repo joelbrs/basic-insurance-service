@@ -30,10 +30,10 @@ CREATE TABLE budgets (
 CREATE TABLE insurances (
     id SERIAL PRIMARY KEY,
     customer_id INT NOT NULL,
-    creation_dt TIMESTAMP NOT NULL,
+    creation_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,
     car_id INT NOT NULL,
-    is_active BOOLEAN DEFAULT FALSE,
+    is_active BOOLEAN DEFAULT TRUE,
     budget_id INT NOT NULL,
     CONSTRAINT fk_customer_insurance FOREIGN KEY (customer_id) REFERENCES customers(id),
     CONSTRAINT fk_car_insurance FOREIGN KEY (car_id) REFERENCES cars(id),
