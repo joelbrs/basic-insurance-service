@@ -23,4 +23,9 @@ public class RedisRepository<K extends String, V> implements CacheRepository<K, 
     public void set(K key, V value) {
         redisTemplate.opsForValue().set(key, value, Long.parseLong(timeToLive), REDIS_TIME_UNIT);
     }
+
+    @Override
+    public void delete(K key) {
+        redisTemplate.delete(key);
+    }
 }
